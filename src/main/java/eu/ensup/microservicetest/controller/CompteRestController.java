@@ -2,12 +2,15 @@ package eu.ensup.microservicetest.controller;
 
 import eu.ensup.microservicetest.entities.Compte;
 import eu.ensup.microservicetest.repositories.CompteRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.actuate.health.Health;
+import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-public class CompteRestController {
+public class CompteRestController implements HealthIndicator {
 
     private CompteRepository compteRepository;
 
@@ -40,4 +43,25 @@ public class CompteRestController {
     public void delete(@PathVariable Long code){
         compteRepository.deleteById(code);
     }
+
+    @Override
+    public Health health()
+    {
+        List<Compte> comptes = compteRepository.findAll();
+        if(comptes.isEmpty())
+        {
+            return Health.down().build();
+        }
+        return Health.up().build();
+    }
+
+//    @Override
+//    public Health health() {
+//        List<Compte> compte = compteRepository.findAll();
+//        if(compte.isEmpty()){
+//            return Health.down().build();
+//        }
+//        return health().up().build();
+//    }
+
 }
