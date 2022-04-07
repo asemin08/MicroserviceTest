@@ -1,5 +1,10 @@
 # MicroserviceTest
 
+Création d'un microservice en suivant la vidéo : https://www.youtube.com/watch?v=jDLaKOBkLI4
+
+## Pré-requis
+
+* jdk 17
 
 ## Spring doc
 
